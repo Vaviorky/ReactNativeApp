@@ -1,14 +1,16 @@
 import React, {Component} from 'react';
-import {StyleSheet, ScrollView, View, Picker, Button} from 'react-native';
+import {StyleSheet, View, Picker, Button, ScrollView} from 'react-native';
 import CustomTextInput from "../CustomTextInput";
 import DatePicker from "../DatePicker";
 import CustomFormControl from "../CustomFormControl";
 
-type Props = {
-  onSubmitButtonClick: () => void
-};
+type Props = {};
 
 export default class Booking extends Component<Props> {
+  static navigationOptions = {
+    title: 'Rezerwacja pokoju',
+  };
+
   state = {
     firstName: '',
     lastName: '',
@@ -21,9 +23,9 @@ export default class Booking extends Component<Props> {
 
   render() {
     const {firstName, lastName, email, startDate, endDate, roomType, numberOfGuests} = this.state;
-    const {onSubmitButtonClick} = this.props;
+    const {navigation} = this.props;
     return (
-      <ScrollView contentContainerStyle={styles.container}>
+      <View style={styles.container}>
         <CustomFormControl label="Imie">
           <CustomTextInput
             value={firstName}
@@ -56,8 +58,8 @@ export default class Booking extends Component<Props> {
         <CustomFormControl label="Liczba gości">
           <CustomTextInput
             value={numberOfGuests.toString()}
-            type="numeric"
-            onChangeText={(newNumberOfGuests) => this.setState({numberOfGuests: newNumberOfGuests})}
+            type="phone-pad"
+            onChangeText={(newNumberOfGuests) => this.setState({numberOfGuests: newNumberOfGuests.replace(/[^0-9]/g, '')})}
           />
         </CustomFormControl>
         <CustomFormControl label="Data zameldowania">
@@ -72,10 +74,10 @@ export default class Booking extends Component<Props> {
             onChangeDate={newDate => this.setState({endDate: newDate})}
           />
         </CustomFormControl>
-        <View style={{marginTop: 20}}>
-          <Button title="Wyślij" onPress={() => onSubmitButtonClick(this.state)} />
+        <View style={{marginTop: 20, alignItems: "center", justifyContent: "center"}}>
+          <Button title="Wyślij" onPress={() => navigation.navigate('Confirmation', this.state)} />
         </View>
-      </ScrollView>
+      </View>
     );
   }
 }
@@ -83,8 +85,7 @@ export default class Booking extends Component<Props> {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'stretch',
-    width: "80%",
+    justifyContent: "center",
+    alignItems: "center"
   }
 });

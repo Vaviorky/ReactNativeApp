@@ -2,6 +2,7 @@
   "parser": "babel-eslint",
   "parserOptions": {
     "sourceType": "module",
+    "ecmaVersion": 2017,
     "allowImportExportEverywhere": true
   },
   "extends": [
@@ -41,12 +42,5 @@
     "promise",
     "compat",
     "react"
-  ],
-  "settings": {
-    "import/resolver": {
-      "webpack": {
-        "config": "webpack.config.eslint.js"
-      }
-    }
-  }
+  ]
 }

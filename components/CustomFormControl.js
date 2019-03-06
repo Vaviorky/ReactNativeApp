@@ -1,10 +1,11 @@
 import React from 'react';
-import PropTypes from 'prop-types';
+import PropTypes from "prop-types";
 import {StyleSheet, Text, View} from 'react-native';
 
 const CustomFormControl = ({label, children}) => {
+  const style = styles.container;
   return (
-    <View style={styles.container}>
+    <View style={style}>
       <Text style={{flex: 1, textAlign: 'right', marginRight: 20}}>{label}</Text>
       <View style={{flex: 2}}>
         {children}
@@ -22,6 +23,7 @@ const styles = StyleSheet.create({
   container: {
     flexDirection: 'row',
     alignItems: 'center',
+    justifyContent: "center",
     width: '100%'
   }
 });

@@ -32,7 +32,7 @@ class DatePicker extends Component<Props> {
         onFocus={() => this.getDate()}
         onChangeText={() => {
         }}
-        value={value.toISOString().slice(0, 10)}
+        value={value.toLocaleDateString("en-GB")}
         style={styles.textField}
       />
     );

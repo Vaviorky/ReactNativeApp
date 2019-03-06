@@ -2,33 +2,43 @@ import React from 'react';
 import {StyleSheet, View, Text} from 'react-native';
 import CustomFormControl from "../CustomFormControl";
 
-const Confirmation = ({userInfo}) => {
-  const {firstName, lastName, email, roomType, numberOfGuests, startDate, endDate} = userInfo;
+const Confirmation = ({navigation}) => {
+  const firstName = navigation.getParam("firstName", 'unknown');
+  const lastName = navigation.getParam("lastName", 'unknown');
+  const email = navigation.getParam("email", 'unknown');
+  const startDate = navigation.getParam("startDate", 'unknown');
+  const endDate = navigation.getParam("endDate", 'unknown');
+  const roomType = navigation.getParam("roomType", 'unknown');
+  const numberOfGuests = navigation.getParam("numberOfGuests", 'unknown');
   return (
     <View style={styles.container}>
       <CustomFormControl label="Imię">
-        <Text style={{fontSize: 16}}>{firstName}</Text>
+        <Text style={styles.text}>{firstName}</Text>
       </CustomFormControl>
       <CustomFormControl label="Nazwisko">
-        <Text style={{fontSize: 16}}>{lastName}</Text>
+        <Text style={styles.text}>{lastName}</Text>
       </CustomFormControl>
       <CustomFormControl label="E-mail">
-        <Text style={{fontSize: 16}}>{email}</Text>
+        <Text style={styles.text}>{email}</Text>
       </CustomFormControl>
       <CustomFormControl label="Rodzaj pokoju">
-        <Text style={{fontSize: 16}}>{parseRoomType(roomType)}</Text>
+        <Text style={styles.text}>{parseRoomType(roomType)}</Text>
       </CustomFormControl>
       <CustomFormControl label="Liczba gości">
-        <Text style={{fontSize: 16}}>{numberOfGuests}</Text>
+        <Text style={styles.text}>{numberOfGuests}</Text>
       </CustomFormControl>
       <CustomFormControl label="Data zameldowania">
-        <Text style={{fontSize: 16}}>{startDate.toISOString().substring(0, 10)}</Text>
+        <Text style={styles.text}>{startDate.toLocaleDateString("en-GB")}</Text>
       </CustomFormControl>
       <CustomFormControl label="Data wymeldowania">
-        <Text style={{fontSize: 16}}>{endDate.toISOString().substring(0, 10)}</Text>
+        <Text style={styles.text}>{endDate.toLocaleDateString("en-GB")}</Text>
       </CustomFormControl>
     </View>
   )
+};
+
+Confirmation.navigationOptions = {
+  title: 'Potwierdzenie rezerwacji',
 };
 
 function parseRoomType(roomType) {
@@ -48,7 +58,11 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    width: "80%",
+  },
+  text: {
+    fontSize: 16,
+    marginTop: 10,
+    marginBottom: 10,
   }
 });
 
